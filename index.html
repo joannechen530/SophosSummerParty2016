@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sophos Summer Party 2016</title>
+    <meta name="Resource-type" content="Document" />
+
+
+    <link rel="stylesheet" type="text/css" href="css/jquery.fullPage.css" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/ideal-image-slider.css">
+    <link rel="stylesheet" href="css/themes/default/default.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <style>
+        #slider {
+            background: #f8f7f3;
+        }
+
+        h2, p {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 200;
+            font-style: normal;
+            font-size: 25px;
+            z-index: 100;
+        } 
+
+        h2 {
+            font-weight: bolder;
+            padding-top: 38px;
+            line-height: 0px;
+        }
+
+        p {
+            /*padding-left: 50px;*/
+            line-height: 30px;
+            margin: 3px;
+        }
+
+        .section {
+            min-width: 883px;
+            background: #f8f7f3;
+        }
+
+        #fp-nav ul li .fp-tooltip.left {
+            color: #333;
+        }
+
+        /* rings and text*/
+        img[class*="-ring-img"] {
+            width: auto;
+            position: absolute;
+            height: 850px;
+            z-index: 10;
+            bottom: -129px;
+        }
+        
+        p[class*="-ring-label"] {
+            position: absolute;
+            font-size: 4em;
+            bottom: 283px;
+        }
+
+        div[class*="-ring-text"] {
+            top: 50%;
+            transform: translateY(-50%);
+            position: absolute;
+            width: 311px;
+            opacity: 0;
+        }
+        
+        .left-ring-img {
+            left: -104px;
+        }
+
+        .left-ring-text {
+            right: 9%;
+        }
+
+        .right-ring-img {
+            right: -104px;
+        }
+
+        .right-ring-text {
+            left: 9%;
+        }
+
+        #section1 .left-ring-label {
+            left: 264px;
+        }
+
+        #section3 .left-ring-label {
+            left: 211px;
+        }
+
+        #section5 .left-ring-label {
+            left: 185px;
+        }
+
+        #section2 .right-ring-label {
+            right: 214px;
+        }
+
+        #section4 .right-ring-label {
+            right: 158px;
+        }
+
+        .no-ring-label {
+            top: 45px;
+            z-index: 1000;
+            right: 41px;
+        }
+
+        .iis-effect-slide .iis-current-slide {
+            background-size: auto 100%;
+        }
+
+        .scrolloff {
+            pointer-events: none;
+        } 
+        
+        #map-iframe {
+            height: auto;
+            width: 100%;
+            position: absolute;
+            top: 139px;
+            bottom: 139px;
+        }
+
+        #google-map-frame {
+            height: 100%;
+        }
+
+        #down-btn {
+            height: 30px;
+            width: 30px;
+            background: black;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 36px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            opacity: 0.5;
+        }
+
+        #down-btn:hover {
+            opacity: 1;
+        }
+
+        .iis-next-nav {
+            display: none;
+        }
+
+        .iis-previous-nav {
+            transform: rotate(-90deg);
+            left: 50%;
+            top: 85%;
+        }
+
+        #fp-nav {
+            opacity: 0;
+        }
+
+        div[id*='solympics'] {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-size: 126%;
+            position: absolute;
+        }
+
+        #solympics-drinks {
+            background: url("img/solympics_drinks.jpg");
+            background-position: -39px 3px;
+            background-size: 120%;
+            bottom: 160px;
+            right: 45px;
+        }
+
+        #solympics-food {
+            background: url("img/solympics_food.jpg");
+            background-position: -6px 5px;
+            background-size: 119%;
+            bottom: 14px;
+            right: 215px;
+        }
+
+        #solympics {
+            background: url("img/solympics.jpg");
+            background-position: -17px 3px;
+            background-size: 120%;
+            bottom: 22px;
+            right: 439px;
+        }
+
+        .fp-tooltip {
+            color: black;
+        }
+
+        #sophos-icon {
+            position: absolute;
+            bottom: 18px;
+            height: 10%;
+            left: 50%;
+        }
+    </style>
+    <!--[if IE]>
+            <script type="text/javascript">
+                     var console = { log: function() {} };
+            </script>
+    <![endif]-->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="js/jquery.fullPage.min.js"></script>
+    <script type="text/javascript" src="js/regex-selector.js"></script>
+    <script src="js/ideal-image-slider.min.js"></script>
+    <script type="text/javascript">
+        var resizeRingText = function() {
+            var offset = ($(window).width() - 850) / 2 - 90;
+            $('.right-ring-text').css('left', offset);
+            $('.left-ring-text').css('right', offset);
+        }
+        
+        window.onresize = function(e) {
+            resizeRingText();
+        }
+
+        $(document).ready(function() {
+            // fullpage.js
+            $('#fullpage').fullpage({
+                //anchors: ['firstPage', 'secondPage', '3rdPage'],
+                //sectionsColor: ['#fff', '#0085c7', '#f4c300', '#000000', '#009f3d', '#df0024'],
+                navigation: true,
+                navigationPosition: 'left',
+                navigationTooltips: ['Home', 'Info', 'Games', 'Tickets', 'Schedule', 'Contacts', 'Map'],
+                onLeave: function(index, nextIndex, direction){
+                    var multiplier = 200;
+                    var timeout = multiplier * Math.abs(index - nextIndex);
+
+                    if (nextIndex === 1) {
+                        $('#fp-nav').animate({
+                            opacity: 0
+                        }, timeout);
+                    } else {
+                        $('#fp-nav').animate({
+                            opacity: 1
+                        }, timeout);
+                    }
+                },
+                afterLoad: function(anchorLink, index) {
+                    if (index < 2) {
+                        return;
+                    }
+
+                    var textBoxes = $("div:regex(class, .*-ring-text)");
+                    var currBox = textBoxes.eq(index - 2);
+                    
+                    if (currBox.length && currBox[0].style.opacity === "1") {
+                        return;
+                    }
+
+                    var props = {opacity: 1};
+
+                    if (currBox.length && currBox[0].className === 'left-ring-text') {
+                        props.right = "+=10";
+                    }
+
+                    if (currBox.length && currBox[0].className === 'right-ring-text') {
+                        props.left = "+=10";
+                    }
+
+                    if (currBox.length) {
+                        currBox.animate(props, "slow");
+                    }
+                }
+            });
+
+            // enable scroll event for google map frame only on click
+            $('#google-map-frame').addClass('scrolloff');
+            $('#map-iframe').on('click', function () {//XXX: fix
+                $('#google-map-frame').removeClass('scrolloff');
+            });
+
+            $('#google-map-frame').mouseleave(function () {
+                $('#google-map-frame').addClass('scrolloff');
+            });
+
+            var slider = new IdealImageSlider.Slider({
+                selector: '#slider',
+                height: $(window).height()
+            });
+            slider.start();
+            slider.stop();
+
+            slider.nextSlide = function(){
+                $.fn.fullpage.moveSectionDown();
+            };
+
+            slider.previousSlide = function() {
+                $.fn.fullpage.moveSectionDown();
+            };
+
+            $('.iis-previous-nav').off('click');
+            $('.iis-next-nav').off('click');
+
+            resizeRingText();
+        });
+    </script> 
+
+</head>
+<body>
+
+<div id="fullpage">
+    <div class="section" id="section0">
+        <!--        <div id="down-btn"></div>-->
+        <div id="slider">
+            <img src="img/homepage_v1.png" alt="Home Page"/>
+            <img/>
+        </div>
+    </div>
+    <div class="section" id="section1">
+        <p class="left-ring-label">INFO</p>
+        <div class="left-ring-text">
+            <h2>Theme</h2>
+            <p>Olympics</p>
+            <h2>Date</h2>
+            <p>Thursday, August 18th</p>
+            <h2>Time</h2>
+            <p>4:00PM - 9:00PM</p>
+            <h2>Location</h2>
+            <p>Brockton Clubhouse, 1151 Stanley Park Drive, Vancouver BC</p>
+            <h2>Transportation</h2>
+            <p>Bus 19 or Taxi</p>
+        </div>
+        <img src="img/ring_red.png" class="left-ring-img"/>
+    </div>
+    <div class="section" id="section2">
+        <p class="right-ring-label">GAMES</p>
+        <div class="right-ring-text">
+            <h2>Events</h2>
+            <p>Velcro Olympics</p>
+            <p>Human Spheres</p>
+            <p>Tug of War</p>
+            <h2>Eating Competition</h2>
+            <p>Food Eating Competition</p>
+            <p>Beer Olympics</p>
+        </div>
+        <img src="img/ring_black.png" class="right-ring-img"/>
+    </div>
+    <div class="section" id="section3">
+        <p class="left-ring-label">TICKETS</p>
+        <div id="solympics-drinks"></div>
+        <div id="solympics-food"></div>
+        <div id="solympics"></div>
+        <div class="left-ring-text">
+            <h2>Drink tickets x2</h2>
+            <p>Select any 2 drinks from a beer, wine or highball</p>
+            <h2>Food ticket x2</h2>
+            <p>Select any 2 items from the menu</p>
+            <h2>Taxi Voucher</h2>
+            <p>Valid until 2AM</p>
+        </div>
+        <img src="img/ring_blue.png" class="left-ring-img"/>
+    </div>
+    <div class="section" id="section4">
+        <p class="right-ring-label">SCHEDULE</p>
+        <div class="right-ring-text">
+            <h2>4:00 - 5:00</h2>
+            <p>Check-in & team assignment</p>
+            <h2>5:00 - 7:00</h2>
+            <p>Official Competition Games</p>
+            <h2>7:00 - 8:00</h2>
+            <p>Food Eating Competition & Beer Olympics</p>
+            <h2>8:30 - 9:00</h2>
+            <p>Raffle Draw</p>
+        </div>
+        <img src="img/ring_green.png" class="right-ring-img"/>
+    </div>
+    <div class="section" id="section5">
+        <p class="left-ring-label">CONTACTS</p>
+        <div class="left-ring-text">
+            <h2>Organizers</h2>
+            <p>Cliona Callaghan</p>
+            <p>Anna Junge</p>
+            <h2>Social Committee</h2>
+            <p>Raj Chahal</p>
+            <p>Sophie O'Donoghue</p>
+            <p>Gi Gopal</p>
+            <p>Joanne Chen</p>
+            <p>Jack Wu</p>
+            <p>Sumel Singh</p>
+            <p>Germany Fischer</p>
+            <p>Abu Yerra</p>
+            <p>Sejal Rathee</p>
+            <p>Robert Sanchez</p>
+            <p>Nikolai Vassev</p>
+            <p>Voicu Chirtes</p>
+            <p>Catriona Davidson</p>
+            <p>Sherman Pao</p>
+        </div>
+        <img src="img/ring_yellow.png" class="left-ring-img"/>
+    </div>
+    <div class="section" id="section6">
+        <p class="no-ring-label">MAP</p>
+        <div id="map-iframe">
+            <iframe id="google-map-frame" src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d10408.789136824094!2d-123.13469722786255!3d49.29160582763241!2m3    !1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e3!4m5!1s0x54867178b16fcacb%3A0x64156294187032ed!2sSophos+Inc%2C+Vancouver%2C+BC!3m2!1d4    9.283818!2d-123.11608!4m5!1s0x0%3A0xa70e30bd4040fdf5!2sBrockton+Clubhouse!3m2!1d49.2990918!2d-123.12442829999999!5e0!3m2!1sen!2sca!    4v1438983654308" width="100%" height="80%" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <img src="img/sophos_icon.png" id="sophos-icon"/>
+    </div>
+</div>
+
+</body>
+</html>
